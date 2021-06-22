@@ -1,0 +1,73 @@
+"Queries"
+type Query {
+    # Students list
+    students: [Student!]! 
+
+    # Student for id
+    student(id: ID!): Student!
+
+    # Courses list 
+    courses: [Course!]!
+
+    # Course for id
+    course(id: ID!): [Course!]
+}
+
+"Mutations are the GraphQL equivalent for http POST, PUT, DELETE and others"
+type Mutation {
+    newCourse(course: courseInput!): Course!
+    modifyCourse(course: courseInput!): Course!
+    removeCourse(id: ID!): Course!
+}
+
+"courseInput is the interface required to add a new course"
+input courseInput {
+    id: ID 
+    title: String!,
+    description: String!, 
+    classes: Int!,
+    time: Float!
+    logo: String! 
+    level: Level=ROOKIE 
+    path: String! 
+    teacher: String! 
+}
+
+"Students Info"
+type Student {
+    id: ID! 
+    name: String!
+    email: String!
+    website: String!
+    courses: [Course!]!
+}
+
+"Course Info"
+type Course {
+    id: ID! 
+    title: String!,
+    description: String!, 
+    classes: Int!,
+    time: Float!
+    logo: String! 
+    level: Level! 
+    path: String! 
+    teacher: String! 
+    students: [Student!]!
+    reviews: [Review!]!
+}
+
+enum Level {
+    ALL 
+    ROOKIE
+    MEDIUM
+    INTERMEDIATE 
+    EXPERT
+}
+
+type Review {
+    id: ID! 
+    name: String! 
+    points: Float! 
+    comment: String 
+}
